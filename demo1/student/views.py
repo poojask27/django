@@ -24,8 +24,11 @@ def student_edit(request, pk):
     if request.method == 'POST':
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
-            form.save()
-            return redirect('student_list')  # Redirect to the student list after saving
+            form=StudentForm(request.POST,instance=student)
+            if form.is_valid():
+
+              form.save()
+              return redirect('student_list')  # Redirect to the student list after saving
     else:
         form = StudentForm(instance=student)
     return render(request, 'students/student_form.html', {'form': form})
@@ -36,4 +39,4 @@ def student_delete(request, pk):
     if request.method == 'POST':
         student.delete()
         return redirect('student_list')  # Redirect to the student list after deletion
-    return render(request, 'students/student_confirm_delete.html', {'student': student})
+    return render(request, 'students/student_confirm_delete.html', {'student': student}) 
